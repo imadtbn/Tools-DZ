@@ -1,0 +1,20 @@
+{
+    "meta": {
+        "lastUpdated": "2024-05-01",
+        "source": "قوانين المالية وقانون العمل الجزائري (مراجعة 2022)",
+        "note": "هذه القيم قابلة للتعديل والمراجعة وفق التحديثات الرسمية."
+    },
+    "ss": {
+        "rate": 0.09,
+        "description": "اقتطاع الضمان الاجتماعي (Securite Sociale)"
+    },
+    "irg": {
+        "rules": [
+            { "min": 0, "max": 30000, "rate": 0, "deduction": 0, "description": "معفى من الضريبة" },
+            { "min": 30001, "max": 35000, "rate": 0.20, "abattement": true, "description": "تخفيض خاص لهذه الشريحة" },
+            { "min": 35001, "max": 120000, "rate": 0.30, "deduction": 9000, "description": "شريحة 30%" },
+            { "min": 120001, "max": 999999999, "rate": 0.35, "deduction": 15000, "description": "شريحة 35%" }
+        ],
+        "abattement_formula_desc": "تخفيض إضافي للرواتب بين 30000 و 35000: IRG = (Base * 0.2) * (137/51) - (274/51) * Base"
+    }
+}

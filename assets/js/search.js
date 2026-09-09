@@ -46,11 +46,11 @@ window.initSearch = function(toolsData) {
         }
 
         searchResults.innerHTML = results.map(tool => `
-            <a href="${resolveUrl(tool.url)}" class="search-item" style="display: flex; align-items: center; padding: 10px; text-decoration: none; border-bottom: 1px solid var(--border-color); color: var(--text-color);">
-                <span style="font-size: 1.5rem; margin-left: 10px;">${tool.icon}</span>
+            <a href="${resolveUrl(tool.url)}" class="search-item" style="display: flex; align-items: center; padding: 15px; text-decoration: none; border-bottom: 1px solid var(--border-color); color: var(--text-color); transition: background-color 0.2s;">
+                <span style="font-size: 1.8rem; margin-left: 15px; transition: transform 0.2s;" class="search-icon">${tool.icon}</span>
                 <div>
-                    <strong style="display: block;">${tool.name}</strong>
-                    <span style="font-size: 0.85rem; color: var(--text-muted);">${tool.description.substring(0, 50)}...</span>
+                    <strong style="display: block; font-size: 1.1rem; color: var(--primary-color); margin-bottom: 3px;">${tool.name}</strong>
+                    <span style="font-size: 0.9rem; color: var(--text-muted);">${tool.description.substring(0, 60)}...</span>
                 </div>
             </a>
         `).join('');

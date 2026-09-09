@@ -1,1 +1,71 @@
-<!DOCTYPE html><html lang='ar' dir='rtl'><head><meta charset='UTF-8'><title>Tools DZ</title></head><body><h1>تحت الإنشاء</h1></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta property="og:title" content="Tools DZ">
+    <meta property="og:description" content="منصة أدوات رقمية مجانية">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "اتصل بنا",
+      "description": "تواصل مع فريق منصة Tools DZ."
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اتصل بنا - Tools DZ</title>
+    <meta name="description" content="تواصل معنا لأي استفسارات أو اقتراحات لتطوير منصة Tools DZ.">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="../index.html">الرئيسية</a></li>
+                    <li><a href="tools.html">جميع الأدوات</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="max-width: 800px; margin-top: 40px; margin-bottom: 40px;">
+        <div class="card" style="padding: 40px;">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">اتصل بنا 📩</h2>
+            <p style="margin-bottom: 20px;">نحن دائماً سعداء بالاستماع إليكم! إذا كان لديكم أي اقتراحات لأدوات جديدة، أو واجهتم مشكلة تقنية، لا تترددوا في مراسلتنا.</p>
+
+            <form id="contact-form" onsubmit="event.preventDefault(); alert('تم إرسال رسالتك بنجاح! شكراً لتواصلك معنا.'); this.reset();">
+                <div class="form-group">
+                    <label>الاسم</label>
+                    <input type="text" required placeholder="اسمك الكريم">
+                </div>
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" required placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label>الموضوع</label>
+                    <select>
+                        <option>اقتراح أداة جديدة</option>
+                        <option>الإبلاغ عن مشكلة</option>
+                        <option>استفسار عام</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>الرسالة</label>
+                    <textarea rows="5" required style="width: 100%; padding: 10px; border-radius: var(--border-radius); border: 1px solid var(--border-color); font-family: inherit;"></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">إرسال الرسالة</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

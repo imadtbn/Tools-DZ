@@ -9,21 +9,39 @@
         order: 3;
         width: 100%;
         margin-top: var(--spacing-md);
+        display: none; /* We'll hide it by default on mobile for a cleaner look */
+    }
+
+    #main-nav.active {
+        display: block; /* Class to toggle via JS if we add a hamburger later */
     }
 
     #main-nav ul {
         flex-direction: column;
-        gap: var(--spacing-sm);
+        gap: 0;
         text-align: center;
-        /* Basic mobile menu structure. We can add a hamburger toggle in JS later */
+        background: var(--surface-color);
+        border-radius: var(--border-radius);
+        overflow: hidden;
     }
 
-    .hero-section h2 {
-        font-size: 2rem;
+    #main-nav ul li a {
+        display: block;
+        padding: 15px;
+        border-bottom: 1px solid var(--border-color);
     }
 
     .hero-section {
-        padding: 2rem 0;
+        clip-path: none; /* Remove complex clip-path on mobile */
+        padding: 4rem 0;
+    }
+
+    .hero-section h2 {
+        font-size: 2.2rem;
+    }
+
+    .hero-section p {
+        font-size: 1.1rem;
     }
 
     .grid-container {
@@ -34,12 +52,25 @@
         grid-template-columns: 1fr;
         text-align: center;
     }
+
+    /* Adjust Tool Pages on Mobile */
+    .tool-page-container {
+        margin: 1rem auto;
+    }
+
+    .tool-wrapper {
+        padding: 1.5rem;
+    }
+
+    .tool-wrapper > div[style*="display: grid"] {
+        grid-template-columns: 1fr !important; /* Stack elements like currency swap vertically */
+    }
 }
 
 /* Small phones */
 @media screen and (max-width: 375px) {
     .hero-section h2 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
 
     .btn {

@@ -40,3 +40,36 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Mobile menu toggle
+    const nav = document.getElementById('main-nav');
+    if(nav) {
+        const toggleBtn = document.createElement('button');
+        toggleBtn.innerHTML = '☰';
+        toggleBtn.className = 'mobile-menu-toggle';
+        toggleBtn.style.cssText = 'display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color);';
+
+        // Add to DOM before nav
+        if(window.innerWidth <= 768) {
+            toggleBtn.style.display = 'block';
+            nav.parentNode.insertBefore(toggleBtn, nav);
+        }
+
+        window.addEventListener('resize', () => {
+            if(window.innerWidth <= 768) {
+                if(!document.querySelector('.mobile-menu-toggle')) {
+                    nav.parentNode.insertBefore(toggleBtn, nav);
+                }
+                toggleBtn.style.display = 'block';
+            } else {
+                toggleBtn.style.display = 'none';
+                nav.classList.remove('active');
+            }
+        });
+
+        toggleBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+    }
+});

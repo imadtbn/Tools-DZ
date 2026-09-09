@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "مولد الفواتير",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مولد الفواتير - Tools DZ</title>
+    <meta name="description" content="أنشئ فواتير احترافية مجاناً مع إمكانية الطباعة والحفظ كـ PDF.">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/tools.css">
+    <style>
+        .invoice-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            color: #000;
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .invoice-table th, .invoice-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: right;
+        }
+        .invoice-table th {
+            background-color: #f9f9f9;
+        }
+        .totals {
+            width: 50%;
+            margin-right: auto;
+        }
+        .totals-table {
+            width: 100%;
+        }
+        .totals-table td {
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .totals-table .grand-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        /* Print Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #print-area, #print-area * {
+                visibility: visible;
+            }
+            #print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .invoice-container {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="main-header" class="no-print">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-page-container" style="max-width: 900px;">
+            <div class="tool-header no-print">
+                <h2>مولد الفواتير 🧾</h2>
+                <p>قم بملء البيانات واضغط على طباعة لحفظ الفاتورة كـ PDF أو طباعتها مباشرة.</p>
+                <div style="margin-top: 15px;">
+                    <button class="btn" onclick="window.print()">🖨️ طباعة / حفظ PDF</button>
+                    <button class="btn btn-secondary" id="add-row-btn">➕ إضافة منتج</button>
+                </div>
+            </div>
+
+            <div id="print-area">
+                <div class="invoice-container">
+                    <div class="invoice-header">
+                        <div>
+                            <h2 style="color: var(--primary-color); margin-bottom: 10px;">فاتورة (Facture)</h2>
+                            <p>رقم الفاتورة: <input type="text" value="INV-001" style="border:none; border-bottom:1px solid #ddd;"></p>
+                            <p>التاريخ: <input type="date" style="border:none; border-bottom:1px solid #ddd;" value="2024-01-01"></p>
+                        </div>
+                        <div style="text-align: left;">
+                            <h3>معلومات البائع</h3>
+                            <input type="text" placeholder="اسم الشركة / البائع" style="border:none; border-bottom:1px solid #ddd; width:100%; margin-bottom:5px;">
+                            <input type="text" placeholder="النشاط / السجل التجاري" style="border:none; border-bottom:1px solid #ddd; width:100%; margin-bottom:5px;">
+                            <input type="text" placeholder="العنوان" style="border:none; border-bottom:1px solid #ddd; width:100%; margin-bottom:5px;">
+                            <input type="text" placeholder="الهاتف" style="border:none; border-bottom:1px solid #ddd; width:100%;">
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h3>إلى (العميل)</h3>
+                        <input type="text" placeholder="اسم العميل" style="border:none; border-bottom:1px solid #ddd; width:100%; max-width:300px; display:block; margin-bottom:5px;">
+                        <input type="text" placeholder="العنوان" style="border:none; border-bottom:1px solid #ddd; width:100%; max-width:300px; display:block; margin-bottom:5px;">
+                        <input type="text" placeholder="الهاتف" style="border:none; border-bottom:1px solid #ddd; width:100%; max-width:300px; display:block;">
+                    </div>
+
+                    <table class="invoice-table" id="items-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 40%;">البيان (Désignation)</th>
+                                <th>الكمية (Qte)</th>
+                                <th>سعر الوحدة (P.U)</th>
+                                <th>المجموع (Total)</th>
+                                <th class="no-print">إجراء</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="item-desc" style="width:100%; border:none;" placeholder="اسم المنتج"></td>
+                                <td><input type="number" class="item-qty" style="width:100%; border:none; text-align:center;" value="1" min="1"></td>
+                                <td><input type="number" class="item-price" style="width:100%; border:none; text-align:center;" value="0" min="0"></td>
+                                <td class="item-total text-center">0</td>
+                                <td class="no-print text-center"><button class="del-row-btn" style="background:none; border:none; color:red; cursor:pointer;">❌</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="totals">
+                        <table class="totals-table">
+                            <tr>
+                                <td>المجموع الفرعي (Subtotal):</td>
+                                <td style="text-align: left;"><span id="subtotal">0</span> دج</td>
+                            </tr>
+                            <tr>
+                                <td>TVA (%): <input type="number" id="tax-rate" value="0" style="width:50px; text-align:center; border:1px solid #ddd;"></td>
+                                <td style="text-align: left;"><span id="tax-amount">0</span> دج</td>
+                            </tr>
+                            <tr>
+                                <td class="grand-total">المبلغ الإجمالي (TTC):</td>
+                                <td class="grand-total" style="text-align: left;"><span id="grand-total">0</span> دج</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div style="margin-top: 50px; border-top: 1px solid #ddd; padding-top: 10px; font-size: 0.9rem;">
+                        <input type="text" placeholder="ملاحظات أو شروط الدفع..." style="width:100%; border:none; font-style:italic;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-content-section no-print">
+                <p>تنبيه: هذا النموذج يساعدك في توليد فواتير مرتبة شكلياً، لكن لكي تعتبر وثيقة ضريبية رسمية، يجب أن تتضمن جميع المعلومات القانونية المطلوبة مثل رقم التعريف الجبائي (NIF) ورقم السجل التجاري (RC).</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.querySelector('input[type="date"]').valueAsDate = new Date();
+
+        const tableBody = document.querySelector('#items-table tbody');
+        const addRowBtn = document.getElementById('add-row-btn');
+
+        function calculateTotals() {
+            let subtotal = 0;
+            const rows = tableBody.querySelectorAll('tr');
+
+            rows.forEach(row => {
+                const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+                const price = parseFloat(row.querySelector('.item-price').value) || 0;
+                const total = qty * price;
+                row.querySelector('.item-total').textContent = total.toFixed(2);
+                subtotal += total;
+            });
+
+            const taxRate = parseFloat(document.getElementById('tax-rate').value) || 0;
+            const taxAmount = subtotal * (taxRate / 100);
+            const grandTotal = subtotal + taxAmount;
+
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+            document.getElementById('tax-amount').textContent = taxAmount.toFixed(2);
+            document.getElementById('grand-total').textContent = grandTotal.toFixed(2);
+        }
+
+        tableBody.addEventListener('input', calculateTotals);
+        document.getElementById('tax-rate').addEventListener('input', calculateTotals);
+
+        tableBody.addEventListener('click', function(e) {
+            if(e.target.classList.contains('del-row-btn')) {
+                const rowCount = tableBody.querySelectorAll('tr').length;
+                if(rowCount > 1) {
+                    e.target.closest('tr').remove();
+                    calculateTotals();
+                }
+            }
+        });
+
+        addRowBtn.addEventListener('click', function() {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" class="item-desc" style="width:100%; border:none;" placeholder="اسم المنتج"></td>
+                <td><input type="number" class="item-qty" style="width:100%; border:none; text-align:center;" value="1" min="1"></td>
+                <td><input type="number" class="item-price" style="width:100%; border:none; text-align:center;" value="0" min="0"></td>
+                <td class="item-total text-center">0</td>
+                <td class="no-print text-center"><button class="del-row-btn" style="background:none; border:none; color:red; cursor:pointer;">❌</button></td>
+            `;
+            tableBody.appendChild(newRow);
+        });
+    </script>
+</body>
+</html>

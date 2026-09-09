@@ -1,0 +1,156 @@
+[
+    {
+        "id": "calorie-calculator",
+        "name": "حاسبة السعرات",
+        "description": "احسب احتياجك اليومي من السعرات الحرارية بدقة.",
+        "category": "daily-life",
+        "url": "/tools/calorie-calculator.html",
+        "icon": "🍽️",
+        "keywords": ["السعرات", "calories", "الوزن", "رجيم", "bmr"],
+        "featured": true,
+        "new": false
+    },
+    {
+        "id": "age-calculator",
+        "name": "حساب العمر",
+        "description": "احسب عمرك بالسنوات، الأشهر، والأيام وتاريخ ميلادك القادم.",
+        "category": "daily-life",
+        "url": "/tools/age-calculator.html",
+        "icon": "🎂",
+        "keywords": ["العمر", "تاريخ الميلاد", "age calculator"],
+        "featured": false,
+        "new": false
+    },
+    {
+        "id": "loan-calculator",
+        "name": "حساب القرض",
+        "description": "احسب الأقساط الشهرية وإجمالي الفائدة لقرضك.",
+        "category": "finance",
+        "url": "/tools/loan-calculator.html",
+        "icon": "💰",
+        "keywords": ["قرض", "فائدة", "بنك", "credit", "loan"],
+        "featured": true,
+        "new": false
+    },
+    {
+        "id": "salary-calculator",
+        "name": "حاسبة الراتب",
+        "description": "احسب راتبك الصافي في الجزائر مع اقتطاعات الضمان والضريبة.",
+        "category": "finance",
+        "url": "/tools/salary-calculator.html",
+        "icon": "💵",
+        "keywords": ["راتب", "salaire", "irg", "ضريبة", "أجر", "fiche de paie"],
+        "featured": true,
+        "new": false
+    },
+    {
+        "id": "electricity-calculator",
+        "name": "استهلاك الكهرباء",
+        "description": "احسب التكلفة التقديرية لاستهلاك الكهرباء لأجهزتك.",
+        "category": "daily-life",
+        "url": "/tools/electricity-calculator.html",
+        "icon": "⚡",
+        "keywords": ["كهرباء", "فاتورة", "sonelgaz", "واط"],
+        "featured": false,
+        "new": false
+    },
+    {
+        "id": "car-cost-calculator",
+        "name": "تكلفة السيارة",
+        "description": "احسب التكلفة الشهرية والسنوية لامتلاك سيارتك.",
+        "category": "cars",
+        "url": "/tools/car-cost-calculator.html",
+        "icon": "🚗",
+        "keywords": ["سيارة", "صيانة", "تأمين", "voiture", "تكلفة"],
+        "featured": false,
+        "new": true
+    },
+    {
+        "id": "fuel-calculator",
+        "name": "حاسبة المسافة والوقود",
+        "description": "احسب كمية وتكلفة الوقود لرحلتك القادمة.",
+        "category": "cars",
+        "url": "/tools/fuel-calculator.html",
+        "icon": "⛽",
+        "keywords": ["وقود", "بنزين", "essence", "diesel", "رحلة", "مسافة"],
+        "featured": true,
+        "new": false
+    },
+    {
+        "id": "unit-converter",
+        "name": "تحويل الوحدات",
+        "description": "أداة شاملة لتحويل الأطوال، الأوزان، المساحات وغيرها.",
+        "category": "work",
+        "url": "/tools/unit-converter.html",
+        "icon": "📏",
+        "keywords": ["تحويل", "وحدات", "طول", "وزن", "converter"],
+        "featured": false,
+        "new": false
+    },
+    {
+        "id": "currency-converter",
+        "name": "تحويل العملات",
+        "description": "حول بين الدينار الجزائري والعملات العالمية.",
+        "category": "finance",
+        "url": "/tools/currency-converter.html",
+        "icon": "💱",
+        "keywords": ["عملات", "دينار", "أورو", "دولار", "devise", "dzd", "eur"],
+        "featured": true,
+        "new": false
+    },
+    {
+        "id": "pdf-tools",
+        "name": "أدوات PDF",
+        "description": "دمج، تقسيم، ضغط وتعديل ملفات PDF محلياً في متصفحك.",
+        "category": "work",
+        "url": "/tools/pdf-tools.html",
+        "icon": "📄",
+        "keywords": ["pdf", "دمج", "تقسيم", "صور", "ملفات"],
+        "featured": true,
+        "new": true
+    },
+    {
+        "id": "image-compressor",
+        "name": "ضغط الصور",
+        "description": "قلل حجم الصور مع الحفاظ على جودتها محلياً.",
+        "category": "work",
+        "url": "/tools/image-compressor.html",
+        "icon": "🖼️",
+        "keywords": ["صور", "ضغط", "image", "compress", "حجم"],
+        "featured": false,
+        "new": true
+    },
+    {
+        "id": "qr-generator",
+        "name": "مولد QR Code",
+        "description": "أنشئ رموز QR لنصوص، روابط، أو واي فاي بسرعة.",
+        "category": "work",
+        "url": "/tools/qr-generator.html",
+        "icon": "📱",
+        "keywords": ["qr", "كود", "رابط", "barcode"],
+        "featured": false,
+        "new": false
+    },
+    {
+        "id": "invoice-generator",
+        "name": "مولد الفواتير",
+        "description": "أنشئ فواتير احترافية قابلة للطباعة والحفظ كـ PDF.",
+        "category": "business",
+        "url": "/tools/invoice-generator.html",
+        "icon": "🧾",
+        "keywords": ["فاتورة", "facture", "وصل", "مبيعات", "pdf"],
+        "featured": true,
+        "new": true
+    },
+    {
+        "id": "cv-builder",
+        "name": "مولد CV",
+        "description": "ابنِ سيرة ذاتية احترافية واحفظها للطباعة.",
+        "category": "students",
+        "url": "/tools/cv-builder.html",
+        "icon": "🧑‍💼",
+        "keywords": ["سيرة ذاتية", "cv", "عمل", "resume"],
+        "featured": false,
+        "new": true
+    }
+]

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "حاسبة الراتب",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة الراتب - Tools DZ</title>
+    <meta name="description" content="احسب راتبك الصافي في الجزائر مع اقتطاعات الضمان والضريبة (IRG و SS) وفقاً لأحدث القوانين.">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/tools.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-page-container">
+            <div class="tool-header">
+                <h2>حاسبة الراتب (الجزائر) 💵</h2>
+                <p>احسب الراتب الصافي انطلاقاً من الراتب الخاضع للضريبة، مع تفصيل الاقتطاعات (SS & IRG).</p>
+            </div>
+
+            <div class="tool-wrapper">
+                <div id="rules-status" style="margin-bottom: 15px; font-size: 0.85rem; color: var(--text-muted);">
+                    جاري تحميل القواعد...
+                </div>
+                <form id="salary-form">
+                    <div class="form-group">
+                        <label>الراتب الإجمالي الخاضع للاقتطاع (Salaire de Base + Primes imposables) (دج)</label>
+                        <input type="number" id="gross-salary" min="0" step="1" required>
+                    </div>
+                    <button type="submit" class="btn" id="calc-btn" style="width: 100%;" disabled>احسب</button>
+                </form>
+
+                <div id="result" class="tool-result hidden">
+                    <h3 class="text-center">الراتب الصافي</h3>
+                    <p style="font-size: 1.5rem; text-align: center; margin-bottom: 15px;">
+                        <strong id="net-salary" style="color:var(--primary-color);">0</strong> دج
+                    </p>
+                    <hr style="border:0; border-top:1px solid var(--border-color); margin-bottom: 15px;">
+                    <p>اقتطاع الضمان الاجتماعي (SS): <strong id="ss-deduction">0</strong> دج</p>
+                    <p>الراتب الخاضع للضريبة (Base IRG): <strong id="base-irg">0</strong> دج</p>
+                    <p>اقتطاع الضريبة (IRG): <strong id="irg-deduction">0</strong> دج</p>
+
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 15px;" id="rule-source"></p>
+                </div>
+            </div>
+
+            <div class="tool-content-section">
+                <h3>ملاحظات:</h3>
+                <ul>
+                    <li>يتم حساب الضمان الاجتماعي بنسبة 9% من الراتب الإجمالي الخاضع للاقتطاع.</li>
+                    <li>يتم حساب الـ IRG بناءً على الشريحة بعد اقتطاع الضمان الاجتماعي، وفق قانون المالية 2022 (الإعفاء حتى 30,000 دج).</li>
+                    <li>لا يشمل هذا الحساب المنح العائلية أو التعويضات غير الخاضعة للضريبة.</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <script src="../assets/js/app.js"></script>
+    <script>
+        let salaryRules = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch(resolveUrl('/data/salary-rules.json'));
+                salaryRules = await res.json();
+                document.getElementById('rules-status').textContent = 'تم تحميل القواعد بنجاح. (' + salaryRules.meta.lastUpdated + ')';
+                document.getElementById('calc-btn').disabled = false;
+            } catch (e) {
+                document.getElementById('rules-status').textContent = 'فشل في تحميل قواعد الراتب. يرجى التأكد من الاتصال.';
+                document.getElementById('rules-status').style.color = 'var(--error-color)';
+            }
+        });
+
+        document.getElementById('salary-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!salaryRules) return;
+
+            const gross = parseFloat(document.getElementById('gross-salary').value);
+
+            // 1. Calculate SS
+            const ssDeduction = gross * salaryRules.ss.rate;
+
+            // 2. Base IRG
+            const baseIrg = gross - ssDeduction;
+
+            // 3. Calculate IRG dynamically from rules
+            let irgDeduction = 0;
+            const b = Math.floor(baseIrg / 10) * 10; // Rounding down to nearest 10
+
+            for (let rule of salaryRules.irg.rules) {
+                if (b >= rule.min && b <= rule.max) {
+                    if (rule.abattement) {
+                        // Formula for 30k-35k per 2022 law
+                        // IRG = (Base * 0.2) * (137/51) - (274000/51)
+                        // Simplified equivalent often used: IRG = (Base - 30000) * 8 / 3 (roughly)
+                        // Let's use the exact mathematical deduction implemented in the rule
+                        let irg_base = b * 0.2;
+                        let abattement = (137/51) * (35000 - b);
+                        irgDeduction = irg_base - abattement - rule.deduction; // Or apply direct logic
+
+                        // Precise calculation for 30k-35k:
+                        irgDeduction = ((b * 0.2) - 6000) * (137/51);
+                    } else {
+                        irgDeduction = (b * rule.rate) - (rule.deduction || 0);
+                    }
+                    break;
+                }
+            }
+
+            // Ensure IRG is not negative
+            irgDeduction = Math.max(0, irgDeduction);
+
+            // 4. Net Salary
+            const netSalary = gross - ssDeduction - irgDeduction;
+
+            document.getElementById('net-salary').textContent = netSalary.toFixed(2);
+            document.getElementById('ss-deduction').textContent = ssDeduction.toFixed(2);
+            document.getElementById('base-irg').textContent = baseIrg.toFixed(2);
+            document.getElementById('irg-deduction').textContent = irgDeduction.toFixed(2);
+            document.getElementById('rule-source').textContent = 'المصدر: ' + salaryRules.meta.source;
+
+            document.getElementById('result').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>

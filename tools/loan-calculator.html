@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "حساب القرض",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب القرض - Tools DZ</title>
+    <meta name="description" content="احسب الأقساط الشهرية وإجمالي الفائدة لقرضك المالي بسهولة.">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/tools.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-page-container">
+            <div class="tool-header">
+                <h2>حساب القرض 💰</h2>
+                <p>احسب قيمة الأقساط الشهرية وإجمالي الفوائد لقرضك.</p>
+            </div>
+
+            <div class="tool-wrapper">
+                <form id="loan-form">
+                    <div class="form-group">
+                        <label>مبلغ القرض (دج)</label>
+                        <input type="number" id="amount" min="1000" step="1000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>نسبة الفائدة السنوية (%)</label>
+                        <input type="number" id="rate" min="0" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>مدة القرض (بالأشهر)</label>
+                        <input type="number" id="months" min="1" required>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">احسب</button>
+                </form>
+
+                <div id="result" class="tool-result hidden">
+                    <h3 class="text-center">النتيجة</h3>
+                    <p style="font-size: 1.2rem;">القسط الشهري: <strong id="monthly-payment" style="color:var(--primary-color);">0</strong> دج</p>
+                    <p>إجمالي الفائدة: <strong id="total-interest">0</strong> دج</p>
+                    <p>المبلغ الإجمالي للسداد: <strong id="total-payment">0</strong> دج</p>
+                    <p style="font-size: 0.85rem; color: var(--error-color); margin-top: 10px;">* تنبيه: هذه النتائج تقديرية وليست استشارة مالية رسمية من البنك.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('loan-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const amount = parseFloat(document.getElementById('amount').value);
+            const rate = parseFloat(document.getElementById('rate').value) / 100 / 12; // Monthly interest rate
+            const months = parseInt(document.getElementById('months').value);
+
+            let monthlyPayment, totalPayment, totalInterest;
+
+            if (rate === 0) {
+                monthlyPayment = amount / months;
+                totalPayment = amount;
+                totalInterest = 0;
+            } else {
+                const x = Math.pow(1 + rate, months);
+                monthlyPayment = (amount * x * rate) / (x - 1);
+                totalPayment = monthlyPayment * months;
+                totalInterest = totalPayment - amount;
+            }
+
+            document.getElementById('monthly-payment').textContent = monthlyPayment.toFixed(2);
+            document.getElementById('total-payment').textContent = totalPayment.toFixed(2);
+            document.getElementById('total-interest').textContent = totalInterest.toFixed(2);
+
+            document.getElementById('result').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>

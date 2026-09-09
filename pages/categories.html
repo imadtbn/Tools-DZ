@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التصنيفات - Tools DZ</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="../index.html">الرئيسية</a></li>
+                    <li><a href="tools.html">جميع الأدوات</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 style="margin: 20px 0;">التصنيفات 📂</h2>
+        <div id="categories-container" class="grid-container">
+            <p style="grid-column: 1 / -1; text-align: center; color: var(--text-muted);">جاري تحميل التصنيفات...</p>
+        </div>
+    </main>
+
+    <script src="../assets/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const container = document.getElementById('categories-container');
+            try {
+                const res = await fetch(resolveUrl('/data/categories.json'));
+                const categories = await res.json();
+
+                container.innerHTML = categories.map(cat => `
+                    <div class="card category-card" id="${cat.id}">
+                        <div class="card-icon">${cat.icon}</div>
+                        <h4>${cat.name}</h4>
+                        <p>${cat.description}</p>
+                        <a href="${resolveUrl('/index.html')}" class="btn" style="margin-top: 15px;">عرض أدوات القسم</a>
+                    </div>
+                `).join('');
+            } catch (e) {
+                container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--error-color);">حدث خطأ أثناء تحميل البيانات.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

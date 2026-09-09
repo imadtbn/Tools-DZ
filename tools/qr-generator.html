@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "مولد QR Code",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مولد QR Code - Tools DZ</title>
+    <meta name="description" content="أنشئ رموز QR مجاناً لنصوص، روابط، أو شبكات الواي فاي.">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/tools.css">
+    <!-- Using a lightweight CDN for QR generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-page-container">
+            <div class="tool-header">
+                <h2>مولد QR Code 📱</h2>
+                <p>أنشئ كود QR للروابط أو النصوص واحفظه كصورة.</p>
+            </div>
+
+            <div class="tool-wrapper" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;">
+                <div>
+                    <form id="qr-form">
+                        <div class="form-group">
+                            <label>نوع المحتوى</label>
+                            <select id="qr-type">
+                                <option value="text">نص أو رابط (URL)</option>
+                                <option value="wifi">شبكة واي فاي (Wi-Fi)</option>
+                            </select>
+                        </div>
+
+                        <div id="text-input-group">
+                            <div class="form-group">
+                                <label>النص أو الرابط</label>
+                                <textarea id="qr-text" rows="4" style="width: 100%; padding: 10px; font-family: inherit; border-radius: var(--border-radius); border: 1px solid var(--border-color);" placeholder="https://example.com" required></textarea>
+                            </div>
+                        </div>
+
+                        <div id="wifi-input-group" class="hidden">
+                            <div class="form-group">
+                                <label>اسم الشبكة (SSID)</label>
+                                <input type="text" id="wifi-ssid">
+                            </div>
+                            <div class="form-group">
+                                <label>كلمة المرور</label>
+                                <input type="password" id="wifi-pass">
+                            </div>
+                            <div class="form-group">
+                                <label>نوع التشفير</label>
+                                <select id="wifi-type">
+                                    <option value="WPA">WPA/WPA2</option>
+                                    <option value="WEP">WEP</option>
+                                    <option value="nopass">بدون كلمة مرور</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn" style="width: 100%;">توليد QR</button>
+                    </form>
+                </div>
+
+                <div class="text-center" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-color); padding: 20px; border-radius: var(--border-radius); min-height: 250px;">
+                    <div id="qrcode" style="margin-bottom: 20px; background: white; padding: 10px; display: inline-block;"></div>
+                    <button id="download-btn" class="btn btn-secondary hidden">تحميل الصورة</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const qrType = document.getElementById('qr-type');
+        const textGroup = document.getElementById('text-input-group');
+        const wifiGroup = document.getElementById('wifi-input-group');
+        const qrContainer = document.getElementById('qrcode');
+        const downloadBtn = document.getElementById('download-btn');
+        let qrCodeObj = null;
+
+        qrType.addEventListener('change', (e) => {
+            if (e.target.value === 'text') {
+                textGroup.classList.remove('hidden');
+                wifiGroup.classList.add('hidden');
+                document.getElementById('qr-text').required = true;
+            } else {
+                textGroup.classList.add('hidden');
+                wifiGroup.classList.remove('hidden');
+                document.getElementById('qr-text').required = false;
+            }
+        });
+
+        document.getElementById('qr-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            qrContainer.innerHTML = ''; // Clear previous
+
+            let data = '';
+            if (qrType.value === 'text') {
+                data = document.getElementById('qr-text').value;
+            } else {
+                const ssid = document.getElementById('wifi-ssid').value;
+                const pass = document.getElementById('wifi-pass').value;
+                const type = document.getElementById('wifi-type').value;
+                // Format: WIFI:T:WPA;S:mynetwork;P:mypass;;
+                data = `WIFI:T:${type};S:${ssid};P:${pass};;`;
+            }
+
+            if (!data) return;
+
+            qrCodeObj = new QRCode(qrContainer, {
+                text: data,
+                width: 200,
+                height: 200,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+
+            downloadBtn.classList.remove('hidden');
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const img = qrContainer.querySelector('img');
+            if (img && img.src) {
+                const link = document.createElement('a');
+                link.download = 'qrcode.png';
+                link.href = img.src;
+                link.click();
+            } else {
+                // If it rendered as canvas instead of img
+                const canvas = qrContainer.querySelector('canvas');
+                if (canvas) {
+                    const link = document.createElement('a');
+                    link.download = 'qrcode.png';
+                    link.href = canvas.toDataURL("image/png");
+                    link.click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

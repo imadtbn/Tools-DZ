@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "أدوات PDF",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أدوات PDF - Tools DZ</title>
+    <meta name="description" content="دمج، تقسيم، واستخراج صفحات PDF محلياً في متصفحك مجاناً.">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/tools.css">
+    <!-- Using pdf-lib for client side pdf manipulation -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-page-container">
+            <div class="tool-header">
+                <h2>أدوات PDF 📄</h2>
+                <p>تعامل مع ملفات الـ PDF بأمان تام دون رفعها لأي خادم خارجي.</p>
+            </div>
+
+            <div class="tool-wrapper">
+                <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center;">
+                    <button class="btn" onclick="switchTab('merge')" id="btn-merge">دمج PDF</button>
+                    <button class="btn btn-secondary" onclick="switchTab('split')" id="btn-split">تقسيم / استخراج</button>
+                </div>
+
+                <!-- Merge Section -->
+                <div id="tab-merge">
+                    <h3 class="text-center" style="margin-bottom: 15px;">دمج عدة ملفات PDF</h3>
+                    <div class="form-group text-center">
+                        <label for="merge-input" class="btn" style="cursor: pointer; display: inline-block;">
+                            اختر ملفات PDF 📁
+                        </label>
+                        <input type="file" id="merge-input" accept="application/pdf" multiple class="hidden">
+                    </div>
+                    <ul id="merge-list" style="margin: 15px 0; max-height: 200px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: var(--border-radius);">
+                        <li style="color:var(--text-muted); text-align:center;">لم يتم اختيار ملفات</li>
+                    </ul>
+                    <button id="do-merge-btn" class="btn" style="width: 100%;" disabled>دمج الملفات الآن</button>
+                </div>
+
+                <!-- Split Section -->
+                <div id="tab-split" class="hidden">
+                    <h3 class="text-center" style="margin-bottom: 15px;">استخراج صفحات من PDF</h3>
+                    <div class="form-group text-center">
+                        <label for="split-input" class="btn" style="cursor: pointer; display: inline-block;">
+                            اختر ملف PDF 📁
+                        </label>
+                        <input type="file" id="split-input" accept="application/pdf" class="hidden">
+                    </div>
+                    <p id="split-file-name" class="text-center" style="margin: 10px 0;"></p>
+                    <div id="split-controls" class="hidden">
+                        <div class="form-group">
+                            <label>أرقام الصفحات المراد استخراجها (مفصولة بفاصلة، مثال: 1, 3, 4-6)</label>
+                            <input type="text" id="pages-input" placeholder="مثال: 1, 3, 5">
+                            <small style="color:var(--text-muted);">الصفحة الأولى رقمها 1</small>
+                        </div>
+                        <button id="do-split-btn" class="btn" style="width: 100%;">استخراج الصفحات</button>
+                    </div>
+                </div>
+
+                <div id="status" class="text-center" style="margin-top: 15px; font-weight: bold; color: var(--primary-color);"></div>
+
+                <div id="download-area" class="text-center hidden" style="margin-top: 20px;">
+                    <a id="download-link" class="btn" style="background-color: var(--success-color);">تحميل النتيجة ↓</a>
+                </div>
+            </div>
+
+            <div class="tool-content-section">
+                <h3>حماية الخصوصية</h3>
+                <p>تتم معالجة جميع ملفات PDF داخل متصفحك (محلياً) باستخدام تقنيات JavaScript المتقدمة. لن يتم إرسال أو تخزين مستنداتك الحساسة على خوادمنا نهائياً.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const { PDFDocument } = PDFLib;
+
+        // Tabs logic
+        function switchTab(tab) {
+            document.getElementById('tab-merge').classList.add('hidden');
+            document.getElementById('tab-split').classList.add('hidden');
+            document.getElementById('btn-merge').className = 'btn btn-secondary';
+            document.getElementById('btn-split').className = 'btn btn-secondary';
+
+            document.getElementById('tab-' + tab).classList.remove('hidden');
+            document.getElementById('btn-' + tab).className = 'btn';
+
+            // Reset status
+            document.getElementById('status').textContent = '';
+            document.getElementById('download-area').classList.add('hidden');
+        }
+
+        // ================= MERGE LOGIC =================
+        const mergeInput = document.getElementById('merge-input');
+        const mergeList = document.getElementById('merge-list');
+        const doMergeBtn = document.getElementById('do-merge-btn');
+        let filesToMerge = [];
+
+        mergeInput.addEventListener('change', (e) => {
+            filesToMerge = Array.from(e.target.files);
+            if (filesToMerge.length > 0) {
+                mergeList.innerHTML = filesToMerge.map((f, i) => `<li>${i+1}. ${f.name}</li>`).join('');
+                doMergeBtn.disabled = filesToMerge.length < 2;
+                if(filesToMerge.length < 2) {
+                    mergeList.innerHTML += `<li style="color:var(--error-color);">الرجاء اختيار ملفين على الأقل للدمج.</li>`;
+                }
+            } else {
+                mergeList.innerHTML = '<li style="color:var(--text-muted); text-align:center;">لم يتم اختيار ملفات</li>';
+                doMergeBtn.disabled = true;
+            }
+        });
+
+        doMergeBtn.addEventListener('click', async () => {
+            if (filesToMerge.length < 2) return;
+            showStatus('جاري الدمج... يرجى الانتظار.');
+
+            try {
+                const mergedPdf = await PDFDocument.create();
+
+                for (const file of filesToMerge) {
+                    const arrayBuffer = await file.arrayBuffer();
+                    const pdf = await PDFDocument.load(arrayBuffer);
+                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                    copiedPages.forEach((page) => mergedPdf.addPage(page));
+                }
+
+                const pdfBytes = await mergedPdf.save();
+                setupDownload(pdfBytes, 'merged_document.pdf');
+                showStatus('تم الدمج بنجاح!');
+            } catch (err) {
+                console.error(err);
+                showStatus('حدث خطأ أثناء الدمج. قد يكون الملف محمياً.', true);
+            }
+        });
+
+        // ================= SPLIT LOGIC =================
+        const splitInput = document.getElementById('split-input');
+        const splitFileName = document.getElementById('split-file-name');
+        const splitControls = document.getElementById('split-controls');
+        const doSplitBtn = document.getElementById('do-split-btn');
+        let fileToSplit = null;
+
+        splitInput.addEventListener('change', (e) => {
+            fileToSplit = e.target.files[0];
+            if (fileToSplit) {
+                splitFileName.textContent = `الملف المختار: ${fileToSplit.name}`;
+                splitControls.classList.remove('hidden');
+            } else {
+                splitControls.classList.add('hidden');
+                splitFileName.textContent = '';
+            }
+        });
+
+        doSplitBtn.addEventListener('click', async () => {
+            if (!fileToSplit) return;
+            const pagesStr = document.getElementById('pages-input').value.trim();
+            if (!pagesStr) {
+                showStatus('الرجاء إدخال أرقام الصفحات', true);
+                return;
+            }
+
+            showStatus('جاري الاستخراج... يرجى الانتظار.');
+
+            try {
+                // Parse pages (basic implementation: comma separated, 1-based index)
+                const pagesToExtract = [];
+                pagesStr.split(',').forEach(part => {
+                    const num = parseInt(part.trim());
+                    if (!isNaN(num) && num > 0) {
+                        pagesToExtract.push(num - 1); // 0-based index for pdf-lib
+                    }
+                });
+
+                if (pagesToExtract.length === 0) throw new Error("لم يتم العثور على أرقام صفحات صالحة");
+
+                const arrayBuffer = await fileToSplit.arrayBuffer();
+                const pdf = await PDFDocument.load(arrayBuffer);
+                const totalPages = pdf.getPageCount();
+
+                // Validate pages
+                const validPages = pagesToExtract.filter(p => p < totalPages);
+
+                if(validPages.length === 0) {
+                     throw new Error("أرقام الصفحات تتجاوز عدد صفحات الملف");
+                }
+
+                const newPdf = await PDFDocument.create();
+                const copiedPages = await newPdf.copyPages(pdf, validPages);
+                copiedPages.forEach((page) => newPdf.addPage(page));
+
+                const pdfBytes = await newPdf.save();
+                setupDownload(pdfBytes, 'extracted_pages.pdf');
+                showStatus('تم الاستخراج بنجاح!');
+            } catch (err) {
+                console.error(err);
+                showStatus('خطأ: ' + err.message, true);
+            }
+        });
+
+        // ================= HELPERS =================
+        function showStatus(msg, isError = false) {
+            const el = document.getElementById('status');
+            el.textContent = msg;
+            el.style.color = isError ? 'var(--error-color)' : 'var(--primary-color)';
+        }
+
+        function setupDownload(bytes, filename) {
+            const blob = new Blob([bytes], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            const link = document.getElementById('download-link');
+            link.href = url;
+            link.download = filename;
+            document.getElementById('download-area').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

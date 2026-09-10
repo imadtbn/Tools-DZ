@@ -83,11 +83,20 @@ ul {
 
 /* Header */
 #main-header {
-    background-color: var(--surface-color);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
     position: sticky;
     top: 0;
     z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    transition: var(--transition);
+}
+
+[data-theme="dark"] #main-header {
+    background-color: rgba(30, 30, 30, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 #main-header .container {
@@ -220,13 +229,27 @@ ul {
 }
 
 .card-icon {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: var(--spacing-md);
-    transition: transform 0.3s;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: rgba(46, 125, 50, 0.1);
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .card-icon {
+    background-color: rgba(76, 175, 80, 0.1);
 }
 
 .card:hover .card-icon {
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(5deg);
+    background-color: var(--primary-color);
+    color: #fff;
 }
 
 .card h4 {
@@ -242,10 +265,19 @@ ul {
 
 /* Footer */
 #main-footer {
-    background-color: var(--surface-color);
-    border-top: 1px solid var(--border-color);
-    padding: 3rem 0;
-    margin-top: 4rem;
+    background-color: #1a232c;
+    color: #cfd8dc;
+    padding: 4rem 0 2rem 0;
+    margin-top: 5rem;
+    border-top: none;
+}
+
+#main-footer a {
+    color: #cfd8dc;
+}
+
+#main-footer a:hover {
+    color: var(--accent-color);
 }
 
 #main-footer .container {
@@ -282,10 +314,19 @@ section {
 
 .hero-section {
     text-align: center;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    background: linear-gradient(135deg, #1b5e20, #2e7d32, #4caf50, #2e7d32);
+    background-size: 300% 300%;
+    animation: gradientBG 10s ease infinite;
     color: #fff;
-    padding: 6rem 0;
-    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    padding: 7rem 0 8rem 0;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .hero-section h2 {

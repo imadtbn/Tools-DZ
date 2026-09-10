@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tools DZ - منصة الأدوات الجزائرية</title>
     <meta name="description" content="منصة أدوات رقمية مجانية مصممة لتسهيل حياتك اليومية، العمل، الدراسة، السيارة وإدارة المصاريف.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
@@ -52,7 +53,10 @@
                 <h2>كل الأدوات التي تحتاجها في مكان واحد</h2>
                 <p>منصة أدوات رقمية مجانية مصممة لتسهيل حياتك اليومية، العمل، الدراسة، السيارة وإدارة المصاريف.</p>
                 <div class="search-box">
-                    <input type="text" id="main-search" placeholder="ابحث عن أداة... (مثال: حاسبة الراتب)">
+                    <div style="position: relative;">
+                        <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.2rem;"></i>
+                        <input type="text" id="main-search" placeholder="ابحث عن أداة... (مثال: حاسبة الراتب)" style="padding-right: 50px;">
+                    </div>
                     <div id="search-results" class="search-results-dropdown hidden"></div>
                 </div>
             </div>
@@ -103,8 +107,13 @@
     <footer id="main-footer">
         <div class="container">
             <div class="footer-info">
-                <h4>Tools DZ</h4>
+                <h4 style="color: #4caf50;">Tools DZ</h4>
                 <p>منصة أدوات رقمية تساعد المستخدم الجزائري في الحساب والتحويل وإنجاز المهام اليومية والعمل والدراسة.</p>
+                <div style="margin-top: 20px; display: flex; gap: 15px; font-size: 1.5rem;">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
             </div>
             <div class="footer-links">
                 <ul>
@@ -115,7 +124,7 @@
                     <li><a href="./pages/disclaimer.html">إخلاء المسؤولية</a></li>
                 </ul>
             </div>
-            <div class="footer-copyright">
+            <div class="footer-copyright" style="border-top-color: #333;">
                 <p>&copy; <span id="current-year"></span> Tools DZ. جميع الحقوق محفوظة.</p>
             </div>
         </div>

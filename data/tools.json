@@ -5,7 +5,7 @@
         "description": "احسب احتياجك اليومي من السعرات الحرارية بدقة.",
         "category": "daily-life",
         "url": "/tools/calorie-calculator.html",
-        "icon": "🍽️",
+        "icon": "<i class=\"fa-solid fa-utensils\"></i>",
         "keywords": ["السعرات", "calories", "الوزن", "رجيم", "bmr"],
         "featured": true,
         "new": false
@@ -16,7 +16,7 @@
         "description": "احسب عمرك بالسنوات، الأشهر، والأيام وتاريخ ميلادك القادم.",
         "category": "daily-life",
         "url": "/tools/age-calculator.html",
-        "icon": "🎂",
+        "icon": "<i class=\"fa-solid fa-cake-candles\"></i>",
         "keywords": ["العمر", "تاريخ الميلاد", "age calculator"],
         "featured": false,
         "new": false
@@ -27,7 +27,7 @@
         "description": "احسب الأقساط الشهرية وإجمالي الفائدة لقرضك.",
         "category": "finance",
         "url": "/tools/loan-calculator.html",
-        "icon": "💰",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
         "keywords": ["قرض", "فائدة", "بنك", "credit", "loan"],
         "featured": true,
         "new": false
@@ -38,7 +38,7 @@
         "description": "احسب راتبك الصافي في الجزائر مع اقتطاعات الضمان والضريبة.",
         "category": "finance",
         "url": "/tools/salary-calculator.html",
-        "icon": "💵",
+        "icon": "<i class=\"fa-solid fa-money-bill-wave\"></i>",
         "keywords": ["راتب", "salaire", "irg", "ضريبة", "أجر", "fiche de paie"],
         "featured": true,
         "new": false
@@ -49,7 +49,7 @@
         "description": "احسب التكلفة التقديرية لاستهلاك الكهرباء لأجهزتك.",
         "category": "daily-life",
         "url": "/tools/electricity-calculator.html",
-        "icon": "⚡",
+        "icon": "<i class=\"fa-solid fa-bolt\"></i>",
         "keywords": ["كهرباء", "فاتورة", "sonelgaz", "واط"],
         "featured": false,
         "new": false
@@ -60,7 +60,7 @@
         "description": "احسب التكلفة الشهرية والسنوية لامتلاك سيارتك.",
         "category": "cars",
         "url": "/tools/car-cost-calculator.html",
-        "icon": "🚗",
+        "icon": "<i class=\"fa-solid fa-car-side\"></i>",
         "keywords": ["سيارة", "صيانة", "تأمين", "voiture", "تكلفة"],
         "featured": false,
         "new": true
@@ -71,7 +71,7 @@
         "description": "احسب كمية وتكلفة الوقود لرحلتك القادمة.",
         "category": "cars",
         "url": "/tools/fuel-calculator.html",
-        "icon": "⛽",
+        "icon": "<i class=\"fa-solid fa-gas-pump\"></i>",
         "keywords": ["وقود", "بنزين", "essence", "diesel", "رحلة", "مسافة"],
         "featured": true,
         "new": false
@@ -82,7 +82,7 @@
         "description": "أداة شاملة لتحويل الأطوال، الأوزان، المساحات وغيرها.",
         "category": "work",
         "url": "/tools/unit-converter.html",
-        "icon": "📏",
+        "icon": "<i class=\"fa-solid fa-ruler-combined\"></i>",
         "keywords": ["تحويل", "وحدات", "طول", "وزن", "converter"],
         "featured": false,
         "new": false
@@ -93,7 +93,7 @@
         "description": "حول بين الدينار الجزائري والعملات العالمية.",
         "category": "finance",
         "url": "/tools/currency-converter.html",
-        "icon": "💱",
+        "icon": "<i class=\"fa-solid fa-coins\"></i>",
         "keywords": ["عملات", "دينار", "أورو", "دولار", "devise", "dzd", "eur"],
         "featured": true,
         "new": false
@@ -104,7 +104,7 @@
         "description": "دمج، تقسيم، ضغط وتعديل ملفات PDF محلياً في متصفحك.",
         "category": "work",
         "url": "/tools/pdf-tools.html",
-        "icon": "📄",
+        "icon": "<i class=\"fa-regular fa-file-pdf\"></i>",
         "keywords": ["pdf", "دمج", "تقسيم", "صور", "ملفات"],
         "featured": true,
         "new": true
@@ -115,7 +115,7 @@
         "description": "قلل حجم الصور مع الحفاظ على جودتها محلياً.",
         "category": "work",
         "url": "/tools/image-compressor.html",
-        "icon": "🖼️",
+        "icon": "<i class=\"fa-regular fa-image\"></i>",
         "keywords": ["صور", "ضغط", "image", "compress", "حجم"],
         "featured": false,
         "new": true
@@ -126,7 +126,7 @@
         "description": "أنشئ رموز QR لنصوص، روابط، أو واي فاي بسرعة.",
         "category": "work",
         "url": "/tools/qr-generator.html",
-        "icon": "📱",
+        "icon": "<i class=\"fa-solid fa-qrcode\"></i>",
         "keywords": ["qr", "كود", "رابط", "barcode"],
         "featured": false,
         "new": false
@@ -137,7 +137,7 @@
         "description": "أنشئ فواتير احترافية قابلة للطباعة والحفظ كـ PDF.",
         "category": "business",
         "url": "/tools/invoice-generator.html",
-        "icon": "🧾",
+        "icon": "<i class=\"fa-solid fa-file-invoice-dollar\"></i>",
         "keywords": ["فاتورة", "facture", "وصل", "مبيعات", "pdf"],
         "featured": true,
         "new": true
@@ -148,7 +148,7 @@
         "description": "ابنِ سيرة ذاتية احترافية واحفظها للطباعة.",
         "category": "students",
         "url": "/tools/cv-builder.html",
-        "icon": "🧑‍💼",
+        "icon": "<i class=\"fa-solid fa-user-tie\"></i>",
         "keywords": ["سيرة ذاتية", "cv", "عمل", "resume"],
         "featured": false,
         "new": true

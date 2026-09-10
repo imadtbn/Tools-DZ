@@ -1,13 +1,20 @@
 const BASE_PATH = (function() {
-    // If we are on GitHub pages, path might be /tools-dz/
-    // This simple logic helps us compute the base path dynamically
-    // based on the location of index.html or other known files.
     const path = window.location.pathname;
 
-    // For github pages support assuming repo name is tools-dz
-    if (path.includes('/tools-dz/')) {
-        return '/tools-dz';
+    // Extract base path dynamically for GitHub Pages (handles /Tools-DZ/ or /tools-dz/)
+    // Check if it's the specific host imadtbn.github.io first
+    if (window.location.hostname.includes('github.io')) {
+        const parts = path.split('/');
+        if (parts.length > 1 && parts[1]) {
+            return '/' + parts[1];
+        }
     }
+
+    const match = path.match(/^\/([^\/]+)\//);
+    if (match && (match[1].toLowerCase() === 'tools-dz')) {
+        return '/' + match[1];
+    }
+
     return '';
 })();
 

@@ -73,7 +73,7 @@ self.addEventListener('fetch', (event) => {
     if (event.request.method !== 'GET') return;
 
     // Ignore external requests for caching unless specifically needed
-    if (!event.request.url.startsWith(self.location.origin) && !event.request.url.includes('cdnjs') && !event.request.url.includes('unpkg')) {
+    if (!event.request.url.startsWith(self.location.origin) && !event.request.url.includes('cdnjs') && !event.request.url.includes('unpkg') && !event.request.url.includes('jsdelivr')) {
         return;
     }
 

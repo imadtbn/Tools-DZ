@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta property="og:title" content="Tools DZ">
+    <meta property="og:description" content="منصة أدوات رقمية مجانية">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "مولد السيرة الذاتية",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مولد السيرة الذاتية - Tools DZ</title>
+    <meta name="description" content="أنشئ سيرة ذاتية احترافية (CV) للتقديم على الوظائف واطبعها أو احفظها كـ PDF.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/tools.css">
+    <style>
+        .cv-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            color: #333;
+            max-width: 21cm; /* A4 width */
+            margin: 0 auto;
+            min-height: 29.7cm; /* A4 height */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .cv-header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .cv-header input {
+            text-align: center;
+            border: none;
+            background: transparent;
+            width: 100%;
+        }
+        .cv-name { font-size: 2.5rem; font-weight: bold; color: var(--primary-color); margin-bottom: 5px; }
+        .cv-title { font-size: 1.2rem; color: #666; margin-bottom: 10px; }
+        .cv-contact input { width: auto; min-width: 200px; }
+
+        .cv-section { margin-bottom: 25px; }
+        .cv-section-title {
+            color: var(--primary-color);
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        .editable-area {
+            width: 100%;
+            min-height: 100px;
+            border: 1px dashed #ccc;
+            padding: 10px;
+            background: #fafafa;
+        }
+
+        /* Print Styles */
+        @media print {
+            body * { visibility: hidden; }
+            #print-area, #print-area * { visibility: visible; }
+            #print-area {
+                position: absolute; left: 0; top: 0; width: 100%;
+            }
+            .no-print { display: none !important; }
+            .cv-container { box-shadow: none; padding: 0; margin: 0; width: 100%; }
+            .editable-area { border: none; background: transparent; padding: 0; }
+            input { border: none !important; background: transparent !important; }
+        }
+    </style>
+</head>
+<body>
+    <header id="main-header" class="no-print">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-page-container" style="max-width: 100%;">
+            <div class="tool-header no-print">
+                <h2>مولد السيرة الذاتية (CV) 🧑‍💼</h2>
+                <p>اضغط على النصوص للتعديل، وقم بكتابة محتواك، ثم اضغط على طباعة / PDF.</p>
+                <div style="margin-top: 15px;">
+                    <button class="btn" onclick="window.print()">🖨️ طباعة / حفظ PDF</button>
+                    <button class="btn btn-secondary" onclick="window.location.reload()">🔄 إعادة تعيين</button>
+                </div>
+            </div>
+
+            <div id="print-area">
+                <div class="cv-container">
+                    <div class="cv-header">
+                        <input type="text" class="cv-name" value="الاسم واللقب" placeholder="اسمك الكامل">
+                        <input type="text" class="cv-title" value="المسمى الوظيفي (مثال: مهندس برمجيات)" placeholder="المسمى الوظيفي">
+                        <div class="cv-contact">
+                            <input type="text" value="📱 الهاتف: +213 555 000 000" placeholder="الهاتف"> |
+                            <input type="text" value="📧 البريد: email@example.com" placeholder="البريد"> |
+                            <input type="text" value="📍 العنوان: الجزائر العاصمة، الجزائر" placeholder="العنوان">
+                        </div>
+                    </div>
+
+                    <div class="cv-section">
+                        <h3 class="cv-section-title">الملف الشخصي</h3>
+                        <div class="editable-area" contenteditable="true">
+                            اكتب نبذة مختصرة عنك وعن أهدافك المهنية هنا.
+                        </div>
+                    </div>
+
+                    <div class="cv-section">
+                        <h3 class="cv-section-title">الخبرة المهنية</h3>
+                        <div class="editable-area" contenteditable="true">
+                            <strong>المسمى الوظيفي - اسم الشركة</strong><br>
+                            <em>جانفي 2020 - الحاضر</em><br>
+                            <ul>
+                                <li>وصف المهام والإنجازات.</li>
+                                <li>نقطة أخرى...</li>
+                            </ul>
+                            <br>
+                            <strong>وظيفة سابقة - اسم الشركة</strong><br>
+                            <em>2018 - 2020</em><br>
+                            <ul>
+                                <li>وصف المهام...</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="cv-section">
+                        <h3 class="cv-section-title">التعليم الأكاديمي</h3>
+                        <div class="editable-area" contenteditable="true">
+                            <strong>شهادة الماستر في تخصص كذا</strong><br>
+                            <em>اسم الجامعة - 2018</em><br><br>
+
+                            <strong>شهادة الليسانس في تخصص كذا</strong><br>
+                            <em>اسم الجامعة - 2016</em>
+                        </div>
+                    </div>
+
+                    <div class="cv-section" style="display: flex; gap: 20px;">
+                        <div style="flex: 1;">
+                            <h3 class="cv-section-title">المهارات</h3>
+                            <div class="editable-area" contenteditable="true">
+                                <ul>
+                                    <li>مهارة 1</li>
+                                    <li>مهارة 2</li>
+                                    <li>مهارة 3</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="flex: 1;">
+                            <h3 class="cv-section-title">اللغات</h3>
+                            <div class="editable-area" contenteditable="true">
+                                <ul>
+                                    <li>العربية (الأم)</li>
+                                    <li>الفرنسية (جيد جداً)</li>
+                                    <li>الإنجليزية (متوسط)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

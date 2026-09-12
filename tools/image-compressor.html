@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta property="og:title" content="Tools DZ">
+    <meta property="og:description" content="منصة أدوات رقمية مجانية">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ضغط الصور",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ضغط الصور - Tools DZ</title>
+    <meta name="description" content="قلل حجم الصور مع الحفاظ على جودتها محلياً داخل المتصفح من أجل سرعة وأمان أفضل.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/tools.css">
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.1/dist/browser-image-compression.js"></script>
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-page-container">
+            <div class="tool-header">
+                <h2>ضغط الصور 🖼️</h2>
+                <p>قم بتصغير حجم الصور لتوفير المساحة أو تسريع رفعها. العملية تتم محلياً 100%.</p>
+            </div>
+
+            <div class="tool-wrapper text-center">
+                <div class="form-group">
+                    <label for="image-input" class="btn" style="cursor: pointer; display: inline-block; margin-bottom: 10px;">
+                        اختر صورة 📁
+                    </label>
+                    <input type="file" id="image-input" accept="image/jpeg, image/png, image/webp" class="hidden">
+                    <p id="file-name" style="font-size: 0.9rem; color: var(--text-muted);"></p>
+                </div>
+
+                <div id="controls" class="hidden" style="max-width: 400px; margin: 20px auto; text-align: right;">
+                    <div class="form-group">
+                        <label>الجودة المستهدفة (%): <span id="quality-val">80</span></label>
+                        <input type="range" id="quality" min="10" max="100" value="80" style="width: 100%;">
+                    </div>
+                    <button id="compress-btn" class="btn" style="width: 100%;">ضغط الصورة</button>
+                </div>
+
+                <div id="status" style="margin-top: 15px; font-weight: bold; color: var(--primary-color);"></div>
+
+                <div id="result" class="hidden" style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="border: 1px solid var(--border-color); padding: 10px; border-radius: var(--border-radius);">
+                        <h4>الصورة الأصلية</h4>
+                        <img id="orig-img" style="max-width: 100%; max-height: 200px; margin: 10px 0;">
+                        <p>الحجم: <strong id="orig-size">0</strong></p>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); padding: 10px; border-radius: var(--border-radius);">
+                        <h4>بعد الضغط</h4>
+                        <img id="comp-img" style="max-width: 100%; max-height: 200px; margin: 10px 0;">
+                        <p>الحجم: <strong id="comp-size">0</strong></p>
+                        <p style="color: var(--success-color);">نسبة التوفير: <strong id="saving">0</strong>%</p>
+                        <a id="download-link" class="btn btn-secondary" style="display: block; margin-top: 10px;" download="compressed_image.jpg">تحميل</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-content-section">
+                <h3>لماذا تستخدم هذه الأداة؟</h3>
+                <p>جميع عمليات الضغط تتم داخل متصفحك (Client-side)، مما يعني أن صورك الخاصة لا يتم رفعها إلى أي خادم خارجي، مما يضمن أمان وخصوصية ملفاتك وسرعة العملية دون استهلاك باقة الإنترنت الخاصة بك للرفع والتنزيل.</p>
+
+                <h3 style="margin-top: 2rem;">خطوات الاستخدام</h3>
+                <ol style="margin-right: 1.5rem; margin-bottom: 1rem; line-height: 1.8;">
+                    <li>اضغط على زر "اختر صورة" وحدد الصورة من جهازك.</li>
+                    <li>اختر "الجودة المستهدفة" باستخدام الشريط المنزلق (80% يعتبر ممتازاً للتوازن بين الحجم والجودة).</li>
+                    <li>اضغط على "ضغط الصورة".</li>
+                    <li>قارن بين الصورة الأصلية والمضغوطة وحمل النتيجة.</li>
+                </ol>
+
+                <h3 style="margin-top: 2rem;">أدوات ذات صلة</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a href="pdf-tools.html" class="btn btn-secondary" style="font-size: 0.9rem;">أدوات PDF 📄</a>
+                    <a href="qr-generator.html" class="btn btn-secondary" style="font-size: 0.9rem;">مولد QR Code 📱</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const imageInput = document.getElementById('image-input');
+        const fileNameDisp = document.getElementById('file-name');
+        const controls = document.getElementById('controls');
+        const compressBtn = document.getElementById('compress-btn');
+        const statusDiv = document.getElementById('status');
+        const resultDiv = document.getElementById('result');
+        const qualityInput = document.getElementById('quality');
+        const qualityVal = document.getElementById('quality-val');
+
+        let originalFile = null;
+
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        qualityInput.addEventListener('input', (e) => {
+            qualityVal.textContent = e.target.value;
+        });
+
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            originalFile = file;
+            fileNameDisp.textContent = file.name;
+            controls.classList.remove('hidden');
+            resultDiv.classList.add('hidden');
+            statusDiv.textContent = '';
+
+            // Show original image
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('orig-img').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            document.getElementById('orig-size').textContent = formatBytes(file.size);
+        });
+
+        compressBtn.addEventListener('click', async () => {
+            if (!originalFile) return;
+
+            statusDiv.textContent = 'جاري الضغط... الرجاء الانتظار.';
+            compressBtn.disabled = true;
+
+            const options = {
+                maxSizeMB: 5,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true,
+                initialQuality: qualityInput.value / 100
+            };
+
+            try {
+                const compressedFile = await imageCompression(originalFile, options);
+
+                // Show result
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('comp-img').src = e.target.result;
+                    document.getElementById('download-link').href = e.target.result;
+                    document.getElementById('download-link').download = 'compressed_' + originalFile.name;
+                };
+                reader.readAsDataURL(compressedFile);
+
+                document.getElementById('comp-size').textContent = formatBytes(compressedFile.size);
+
+                const saving = ((originalFile.size - compressedFile.size) / originalFile.size * 100).toFixed(1);
+                document.getElementById('saving').textContent = Math.max(0, saving);
+
+                statusDiv.textContent = 'تم الضغط بنجاح!';
+                resultDiv.classList.remove('hidden');
+            } catch (error) {
+                console.error(error);
+                statusDiv.textContent = 'حدث خطأ أثناء الضغط.';
+                statusDiv.style.color = 'var(--error-color)';
+            } finally {
+                compressBtn.disabled = false;
+            }
+        });
+    </script>
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-info">
+                <h4 style="color: #4caf50;">Tools DZ</h4>
+                <p>منصة أدوات رقمية تساعد المستخدم الجزائري في الحساب والتحويل وإنجاز المهام اليومية والعمل والدراسة.</p>
+                <div style="margin-top: 20px; display: flex; gap: 15px; font-size: 1.5rem;">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="../pages/about.html">حول المنصة</a></li>
+                    <li><a href="../pages/contact.html">اتصل بنا</a></li>
+                    <li><a href="../pages/privacy.html">سياسة الخصوصية</a></li>
+                    <li><a href="../pages/terms.html">شروط الاستخدام</a></li>
+                    <li><a href="../pages/disclaimer.html">إخلاء المسؤولية</a></li>
+                </ul>
+            </div>
+            <div class="footer-copyright" style="border-top-color: #333;">
+                <p>&copy; <span id="current-year"></span> Tools DZ. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

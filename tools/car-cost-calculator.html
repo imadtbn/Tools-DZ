@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta property="og:title" content="Tools DZ">
+    <meta property="og:description" content="منصة أدوات رقمية مجانية">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "تكلفة السيارة",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تكلفة السيارة - Tools DZ</title>
+    <meta name="description" content="احسب التكلفة الشهرية والسنوية لامتلاك سيارتك (الوقود، الصيانة، التأمين، الضرائب).">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/tools.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-page-container">
+            <div class="tool-header">
+                <h2>حاسبة تكلفة السيارة 🚗</h2>
+                <p>احسب التكاليف الإجمالية لامتلاك سيارتك (وقود، صيانة، تأمين، ضرائب) شهرياً وسنوياً.</p>
+            </div>
+
+            <div class="tool-wrapper">
+                <form id="car-cost-form">
+                    <div class="form-group">
+                        <label>المسافة المقطوعة شهرياً (كم)</label>
+                        <input type="number" id="monthly-distance" min="0" required placeholder="مثال: 1500">
+                    </div>
+                    <div class="form-group">
+                        <label>استهلاك السيارة (لتر لكل 100 كم)</label>
+                        <input type="number" id="consumption" min="1" step="0.1" required placeholder="مثال: 7.5">
+                    </div>
+                    <div class="form-group">
+                        <label>سعر لتر الوقود (دج)</label>
+                        <input type="number" id="fuel-price" min="1" step="0.1" required placeholder="مثال: 45">
+                    </div>
+                    <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--border-color);">
+                    <div class="form-group">
+                        <label>تكلفة التأمين السنوية (دج)</label>
+                        <input type="number" id="insurance" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>تكلفة الصيانة السنوية التقديرية (دج)</label>
+                        <input type="number" id="maintenance" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>الضرائب السنوية (قسيمة السيارات وغيرها) (دج)</label>
+                        <input type="number" id="taxes" min="0" value="0">
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">احسب التكلفة الإجمالية</button>
+                </form>
+
+                <div id="result" class="tool-result hidden">
+                    <h3 class="text-center">النتيجة التقديرية</h3>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 15px;">
+                        <div style="background:var(--bg-color); padding: 15px; border-radius: var(--border-radius); text-align:center;">
+                            <p>التكلفة الشهرية الإجمالية</p>
+                            <strong><span id="monthly-cost" style="font-size:1.5rem; color:var(--primary-color);">0</span> دج</strong>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div style="background:var(--bg-color); padding: 10px; border-radius: var(--border-radius); text-align:center;">
+                            <p>التكلفة السنوية</p>
+                            <strong><span id="yearly-cost">0</span> دج</strong>
+                        </div>
+                        <div style="background:var(--bg-color); padding: 10px; border-radius: var(--border-radius); text-align:center;">
+                            <p>تكلفة الكيلومتر الواحد</p>
+                            <strong><span id="km-cost">0</span> دج/كم</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-content-section">
+                <h3>كيف تدير مصاريف سيارتك؟</h3>
+                <p>امتلاك سيارة لا يقتصر على تعبئة الوقود فقط. المصاريف الخفية مثل التأمين السنوي، الصيانة الدورية (تغيير الزيت، الإطارات)، والضرائب (قسيمة السيارات) يمكن أن تشكل جزءاً كبيراً من ميزانيتك.</p>
+                <p>هذه الحاسبة تساعدك على دمج جميع هذه المصاريف لتعرف <strong>التكلفة الحقيقية للكيلومتر الواحد</strong>، مما يساعدك في اتخاذ قرارات مالية أفضل.</p>
+
+                <h3 style="margin-top: 2rem;">أدوات ذات صلة</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a href="fuel-calculator.html" class="btn btn-secondary" style="font-size: 0.9rem;">حاسبة الوقود والمسافة ⛽</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('car-cost-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const distance = parseFloat(document.getElementById('monthly-distance').value);
+            const consumption = parseFloat(document.getElementById('consumption').value);
+            const fuelPrice = parseFloat(document.getElementById('fuel-price').value);
+
+            const insurance = parseFloat(document.getElementById('insurance').value) || 0;
+            const maintenance = parseFloat(document.getElementById('maintenance').value) || 0;
+            const taxes = parseFloat(document.getElementById('taxes').value) || 0;
+
+            // Fuel calculation
+            const monthlyFuelLiters = (distance / 100) * consumption;
+            const monthlyFuelCost = monthlyFuelLiters * fuelPrice;
+            const yearlyFuelCost = monthlyFuelCost * 12;
+
+            // Fixed costs
+            const yearlyFixedCost = insurance + maintenance + taxes;
+            const monthlyFixedCost = yearlyFixedCost / 12;
+
+            // Totals
+            const totalMonthly = monthlyFuelCost + monthlyFixedCost;
+            const totalYearly = yearlyFuelCost + yearlyFixedCost;
+
+            const yearlyDistance = distance * 12;
+            const kmCost = yearlyDistance > 0 ? (totalYearly / yearlyDistance) : 0;
+
+            document.getElementById('monthly-cost').textContent = Math.round(totalMonthly).toLocaleString();
+            document.getElementById('yearly-cost').textContent = Math.round(totalYearly).toLocaleString();
+            document.getElementById('km-cost').textContent = kmCost.toFixed(2);
+
+            document.getElementById('result').classList.remove('hidden');
+        });
+    </script>
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-info">
+                <h4 style="color: #4caf50;">Tools DZ</h4>
+                <p>منصة أدوات رقمية تساعد المستخدم الجزائري في الحساب والتحويل وإنجاز المهام اليومية والعمل والدراسة.</p>
+                <div style="margin-top: 20px; display: flex; gap: 15px; font-size: 1.5rem;">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="../pages/about.html">حول المنصة</a></li>
+                    <li><a href="../pages/contact.html">اتصل بنا</a></li>
+                    <li><a href="../pages/privacy.html">سياسة الخصوصية</a></li>
+                    <li><a href="../pages/terms.html">شروط الاستخدام</a></li>
+                    <li><a href="../pages/disclaimer.html">إخلاء المسؤولية</a></li>
+                </ul>
+            </div>
+            <div class="footer-copyright" style="border-top-color: #333;">
+                <p>&copy; <span id="current-year"></span> Tools DZ. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta property="og:title" content="Tools DZ">
+    <meta property="og:description" content="منصة أدوات رقمية مجانية">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "تحويل العملات",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحويل العملات - Tools DZ</title>
+    <meta name="description" content="حول بين الدينار الجزائري والعملات العالمية بأسعار محدثة.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/tools.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-page-container">
+            <div class="tool-header">
+                <h2>تحويل العملات 💱</h2>
+                <p>حول بين العملات المختلفة.</p>
+                <div id="api-status" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">
+                    جاري تحميل أسعار الصرف...
+                </div>
+            </div>
+
+            <div class="tool-wrapper">
+                <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 15px; align-items: center;">
+                    <div>
+                        <input type="number" id="amount" value="1" min="0" step="any" class="form-group" style="width: 100%; margin-bottom: 5px;">
+                        <select id="from-currency" class="form-group" style="width: 100%;">
+                            <option value="EUR">أورو (EUR)</option>
+                            <option value="USD">دولار أمريكي (USD)</option>
+                            <option value="GBP">جنيه إسترليني (GBP)</option>
+                            <option value="CAD">دولار كندي (CAD)</option>
+                            <option value="DZD">دينار جزائري (DZD)</option>
+                        </select>
+                    </div>
+                    <button id="swap-btn" class="btn btn-secondary" style="border-radius: 50%; padding: 10px; cursor: pointer;">
+                        ⇄
+                    </button>
+                    <div>
+                        <input type="text" id="result-amount" readonly class="form-group" style="width: 100%; margin-bottom: 5px; background: var(--bg-color);">
+                        <select id="to-currency" class="form-group" style="width: 100%;">
+                            <option value="DZD">دينار جزائري (DZD)</option>
+                            <option value="EUR">أورو (EUR)</option>
+                            <option value="USD">دولار أمريكي (USD)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-content-section text-center">
+                <p style="font-size: 0.9rem; color: var(--text-muted);">
+                    تنبيه: هذه الأسعار تمثل الصرف الرسمي للبنك وليست أسعار السوق الموازية (السكوار).
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let exchangeRates = {};
+        const CACHE_KEY = 'tools_dz_rates';
+        const CACHE_TIME = 24 * 60 * 60 * 1000; // 24 hours
+
+        const amountInput = document.getElementById('amount');
+        const resultInput = document.getElementById('result-amount');
+        const fromSelect = document.getElementById('from-currency');
+        const toSelect = document.getElementById('to-currency');
+        const statusDiv = document.getElementById('api-status');
+
+        async function fetchRates() {
+            // Check cache
+            const cached = localStorage.getItem(CACHE_KEY);
+            if (cached) {
+                const data = JSON.parse(cached);
+                if (Date.now() - data.timestamp < CACHE_TIME) {
+                    exchangeRates = data.rates;
+                    statusDiv.textContent = `آخر تحديث: ${new Date(data.timestamp).toLocaleString()} (محلي)`;
+                    calculate();
+                    return;
+                }
+            }
+
+            try {
+                // Using a free open API like open.er-api.com (No API Key needed for basic use)
+                const res = await fetch('https://open.er-api.com/v6/latest/USD');
+                const data = await res.json();
+
+                if (data.result === 'success') {
+                    exchangeRates = data.rates;
+
+                    // Cache the results
+                    localStorage.setItem(CACHE_KEY, JSON.stringify({
+                        timestamp: Date.now(),
+                        rates: exchangeRates
+                    }));
+
+                    statusDiv.textContent = `آخر تحديث: ${new Date().toLocaleString()} (مباشر)`;
+                    calculate();
+                } else {
+                    throw new Error('API Error');
+                }
+            } catch (e) {
+                // Fallback to static rates if API fails and no cache
+                console.error('Failed to fetch rates', e);
+                statusDiv.textContent = 'تعذر الاتصال بالشبكة. يتم استخدام أسعار تقريبية.';
+                statusDiv.style.color = 'var(--error-color)';
+
+                exchangeRates = {
+                    USD: 1,
+                    EUR: 0.92,
+                    GBP: 0.79,
+                    CAD: 1.35,
+                    DZD: 134.50
+                };
+                calculate();
+            }
+        }
+
+        function calculate() {
+            if (Object.keys(exchangeRates).length === 0) return;
+
+            const amount = parseFloat(amountInput.value) || 0;
+            const from = fromSelect.value;
+            const to = toSelect.value;
+
+            // Rates are relative to USD
+            const rateFrom = exchangeRates[from];
+            const rateTo = exchangeRates[to];
+
+            if (rateFrom && rateTo) {
+                // Convert to USD first, then to target
+                const result = (amount / rateFrom) * rateTo;
+                resultInput.value = result.toFixed(2);
+            }
+        }
+
+        document.getElementById('swap-btn').addEventListener('click', () => {
+            const temp = fromSelect.value;
+            fromSelect.value = toSelect.value;
+            toSelect.value = temp;
+            calculate();
+        });
+
+        amountInput.addEventListener('input', calculate);
+        fromSelect.addEventListener('change', calculate);
+        toSelect.addEventListener('change', calculate);
+
+        // Init
+        fetchRates();
+    </script>
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-info">
+                <h4 style="color: #4caf50;">Tools DZ</h4>
+                <p>منصة أدوات رقمية تساعد المستخدم الجزائري في الحساب والتحويل وإنجاز المهام اليومية والعمل والدراسة.</p>
+                <div style="margin-top: 20px; display: flex; gap: 15px; font-size: 1.5rem;">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="../pages/about.html">حول المنصة</a></li>
+                    <li><a href="../pages/contact.html">اتصل بنا</a></li>
+                    <li><a href="../pages/privacy.html">سياسة الخصوصية</a></li>
+                    <li><a href="../pages/terms.html">شروط الاستخدام</a></li>
+                    <li><a href="../pages/disclaimer.html">إخلاء المسؤولية</a></li>
+                </ul>
+            </div>
+            <div class="footer-copyright" style="border-top-color: #333;">
+                <p>&copy; <span id="current-year"></span> Tools DZ. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

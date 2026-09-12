@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta property="og:title" content="Tools DZ">
+    <meta property="og:description" content="منصة أدوات رقمية مجانية">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "استهلاك الكهرباء",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استهلاك الكهرباء - Tools DZ</title>
+    <meta name="description" content="احسب التكلفة التقديرية لاستهلاك الكهرباء لأجهزتك المنزلية بسهولة.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/tools.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-page-container">
+            <div class="tool-header">
+                <h2>استهلاك الكهرباء ⚡</h2>
+                <p>احسب التكلفة التقديرية للاستهلاك الكهربائي لأجهزتك.</p>
+            </div>
+
+            <div class="tool-wrapper">
+                <form id="electricity-form">
+                    <div class="form-group">
+                        <label>القدرة الكهربائية للجهاز (الواط - Watt)</label>
+                        <input type="number" id="watts" min="1" required placeholder="مثال: 1500">
+                    </div>
+                    <div class="form-group">
+                        <label>عدد ساعات التشغيل يومياً</label>
+                        <input type="number" id="hours" min="1" max="24" required placeholder="مثال: 5">
+                    </div>
+                    <div class="form-group">
+                        <label>سعر الكيلوواط الساعي (دج / kWh)</label>
+                        <input type="number" id="price" min="0" step="0.01" value="4.18" required>
+                        <small style="color:var(--text-muted);">سعر الشريحة المتوسطة لـ Sonelgaz تقريباً.</small>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">احسب</button>
+                </form>
+
+                <div id="result" class="tool-result hidden">
+                    <h3 class="text-center">النتيجة التقديرية</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                        <div style="background:var(--bg-color); padding: 10px; border-radius: var(--border-radius); text-align:center;">
+                            <p>الاستهلاك اليومي</p>
+                            <strong><span id="daily-kwh">0</span> kWh</strong>
+                        </div>
+                        <div style="background:var(--bg-color); padding: 10px; border-radius: var(--border-radius); text-align:center;">
+                            <p>التكلفة اليومية</p>
+                            <strong><span id="daily-cost">0</span> دج</strong>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div style="background:var(--bg-color); padding: 10px; border-radius: var(--border-radius); text-align:center;">
+                            <p>الاستهلاك الشهري</p>
+                            <strong><span id="monthly-kwh">0</span> kWh</strong>
+                        </div>
+                        <div style="background:var(--bg-color); padding: 10px; border-radius: var(--border-radius); text-align:center;">
+                            <p>التكلفة الشهرية</p>
+                            <strong><span id="monthly-cost">0</span> دج</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-content-section">
+                <h3>طريقة الحساب:</h3>
+                <p>يتم تحويل الواط إلى كيلوواط بقسمته على 1000، ثم ضربه في عدد ساعات التشغيل للحصول على الاستهلاك بالـ (kWh). وتضرب النتيجة في السعر للحصول على التكلفة.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('electricity-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const watts = parseFloat(document.getElementById('watts').value);
+            const hours = parseFloat(document.getElementById('hours').value);
+            const price = parseFloat(document.getElementById('price').value);
+
+            const dailyKwh = (watts / 1000) * hours;
+            const dailyCost = dailyKwh * price;
+
+            const monthlyKwh = dailyKwh * 30;
+            const monthlyCost = dailyCost * 30;
+
+            document.getElementById('daily-kwh').textContent = dailyKwh.toFixed(2);
+            document.getElementById('daily-cost').textContent = dailyCost.toFixed(2);
+            document.getElementById('monthly-kwh').textContent = monthlyKwh.toFixed(2);
+            document.getElementById('monthly-cost').textContent = monthlyCost.toFixed(2);
+
+            document.getElementById('result').classList.remove('hidden');
+        });
+    </script>
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-info">
+                <h4 style="color: #4caf50;">Tools DZ</h4>
+                <p>منصة أدوات رقمية تساعد المستخدم الجزائري في الحساب والتحويل وإنجاز المهام اليومية والعمل والدراسة.</p>
+                <div style="margin-top: 20px; display: flex; gap: 15px; font-size: 1.5rem;">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="../pages/about.html">حول المنصة</a></li>
+                    <li><a href="../pages/contact.html">اتصل بنا</a></li>
+                    <li><a href="../pages/privacy.html">سياسة الخصوصية</a></li>
+                    <li><a href="../pages/terms.html">شروط الاستخدام</a></li>
+                    <li><a href="../pages/disclaimer.html">إخلاء المسؤولية</a></li>
+                </ul>
+            </div>
+            <div class="footer-copyright" style="border-top-color: #333;">
+                <p>&copy; <span id="current-year"></span> Tools DZ. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta property="og:title" content="Tools DZ">
+    <meta property="og:description" content="منصة أدوات رقمية مجانية">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "اتصل بنا",
+      "description": "تواصل مع فريق منصة Tools DZ."
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اتصل بنا - Tools DZ</title>
+    <meta name="description" content="تواصل معنا لأي استفسارات أو اقتراحات لتطوير منصة Tools DZ.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="../index.html">الرئيسية</a></li>
+                    <li><a href="tools.html">جميع الأدوات</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="max-width: 800px; margin-top: 40px; margin-bottom: 40px;">
+        <div class="card" style="padding: 40px;">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">اتصل بنا 📩</h2>
+            <p style="margin-bottom: 20px;">نحن دائماً سعداء بالاستماع إليكم! إذا كان لديكم أي اقتراحات لأدوات جديدة، أو واجهتم مشكلة تقنية، لا تترددوا في مراسلتنا.</p>
+
+            <form id="contact-form" onsubmit="event.preventDefault(); alert('تم إرسال رسالتك بنجاح! شكراً لتواصلك معنا.'); this.reset();">
+                <div class="form-group">
+                    <label>الاسم</label>
+                    <input type="text" required placeholder="اسمك الكريم">
+                </div>
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" required placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label>الموضوع</label>
+                    <select>
+                        <option>اقتراح أداة جديدة</option>
+                        <option>الإبلاغ عن مشكلة</option>
+                        <option>استفسار عام</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>الرسالة</label>
+                    <textarea rows="5" required style="width: 100%; padding: 10px; border-radius: var(--border-radius); border: 1px solid var(--border-color); font-family: inherit;"></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">إرسال الرسالة</button>
+            </form>
+        </div>
+    </main>
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-info">
+                <h4 style="color: #4caf50;">Tools DZ</h4>
+                <p>منصة أدوات رقمية تساعد المستخدم الجزائري في الحساب والتحويل وإنجاز المهام اليومية والعمل والدراسة.</p>
+                <div style="margin-top: 20px; display: flex; gap: 15px; font-size: 1.5rem;">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="../pages/about.html">حول المنصة</a></li>
+                    <li><a href="../pages/contact.html">اتصل بنا</a></li>
+                    <li><a href="../pages/privacy.html">سياسة الخصوصية</a></li>
+                    <li><a href="../pages/terms.html">شروط الاستخدام</a></li>
+                    <li><a href="../pages/disclaimer.html">إخلاء المسؤولية</a></li>
+                </ul>
+            </div>
+            <div class="footer-copyright" style="border-top-color: #333;">
+                <p>&copy; <span id="current-year"></span> Tools DZ. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

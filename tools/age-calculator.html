@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta property="og:title" content="Tools DZ">
+    <meta property="og:description" content="منصة أدوات رقمية مجانية">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "حساب العمر",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب العمر - Tools DZ</title>
+    <meta name="description" content="احسب عمرك بالتفصيل (السنوات، الأشهر، الأيام) واعرف كم تبقى لعيد ميلادك القادم.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/tools.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Tools DZ</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-page-container">
+            <div class="tool-header">
+                <h2>حساب العمر 🎂</h2>
+                <p>احسب عمرك بدقة واعرف التفاصيل.</p>
+            </div>
+
+            <div class="tool-wrapper">
+                <form id="age-form">
+                    <div class="form-group">
+                        <label>تاريخ الميلاد</label>
+                        <input type="date" id="birthdate" required>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">احسب</button>
+                </form>
+
+                <div id="result" class="tool-result hidden text-center">
+                    <h3>النتيجة</h3>
+                    <div style="display: flex; justify-content: space-around; font-size: 1.5rem; margin-bottom: 1rem;">
+                        <div><strong id="years-res">0</strong><br><span style="font-size: 1rem;">سنة</span></div>
+                        <div><strong id="months-res">0</strong><br><span style="font-size: 1rem;">شهر</span></div>
+                        <div><strong id="days-res">0</strong><br><span style="font-size: 1rem;">يوم</span></div>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        إجمالي الأيام التي عشتها: <strong id="total-days">0</strong> يوم
+                    </p>
+                    <p style="margin-top: 10px; color: var(--accent-color);">
+                        متبقي لعيد ميلادك القادم: <strong id="next-bday">0</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('age-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const bdateStr = document.getElementById('birthdate').value;
+            if (!bdateStr) return;
+
+            const bdate = new Date(bdateStr);
+            const today = new Date();
+
+            if (bdate > today) {
+                alert('تاريخ الميلاد يجب أن يكون في الماضي!');
+                return;
+            }
+
+            let years = today.getFullYear() - bdate.getFullYear();
+            let months = today.getMonth() - bdate.getMonth();
+            let days = today.getDate() - bdate.getDate();
+
+            if (days < 0) {
+                months--;
+                // Get days in previous month
+                const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += lastMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            const totalDays = Math.floor((today - bdate) / (1000 * 60 * 60 * 24));
+
+            // Next birthday calculation
+            let nextBday = new Date(today.getFullYear(), bdate.getMonth(), bdate.getDate());
+            if (today > nextBday) {
+                nextBday.setFullYear(today.getFullYear() + 1);
+            }
+
+            let nextDiff = Math.floor((nextBday - today) / (1000 * 60 * 60 * 24));
+
+            document.getElementById('years-res').textContent = years;
+            document.getElementById('months-res').textContent = months;
+            document.getElementById('days-res').textContent = days;
+            document.getElementById('total-days').textContent = totalDays;
+
+            if (nextDiff === 0) {
+                document.getElementById('next-bday').textContent = "عيد ميلاد سعيد! 🎉 اليوم هو عيد ميلادك.";
+            } else {
+                document.getElementById('next-bday').textContent = nextDiff + " يوم";
+            }
+
+            document.getElementById('result').classList.remove('hidden');
+        });
+    </script>
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-info">
+                <h4 style="color: #4caf50;">Tools DZ</h4>
+                <p>منصة أدوات رقمية تساعد المستخدم الجزائري في الحساب والتحويل وإنجاز المهام اليومية والعمل والدراسة.</p>
+                <div style="margin-top: 20px; display: flex; gap: 15px; font-size: 1.5rem;">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="../pages/about.html">حول المنصة</a></li>
+                    <li><a href="../pages/contact.html">اتصل بنا</a></li>
+                    <li><a href="../pages/privacy.html">سياسة الخصوصية</a></li>
+                    <li><a href="../pages/terms.html">شروط الاستخدام</a></li>
+                    <li><a href="../pages/disclaimer.html">إخلاء المسؤولية</a></li>
+                </ul>
+            </div>
+            <div class="footer-copyright" style="border-top-color: #333;">
+                <p>&copy; <span id="current-year"></span> Tools DZ. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
